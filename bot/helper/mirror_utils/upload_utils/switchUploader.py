@@ -172,14 +172,14 @@ class SwUploader:
                             or "/copied_mltb/" in self.__up_path
                         )
                     ):
-                        await aioremove(self.__up_path)
-                    continue
-        if self.__is_cancelled:
-            return
-        if self.__listener.seed and not self.__listener.newDir:
-            await clean_unwanted(self.__path)
-        if self.__total_files == 0:
-            await self.__listener.onUploadError(
+                        self.sent_msg = await self.sent_msg.reply_media(document=self.__up_path,
+                                                            message=description,
+                                                            description=file,
+                                                            mime_type=mime_type,
+                                                            thumb=thumb,
+                                                            progress=self.__upload_progress,
+                                                            part_size=10*1024*1024, task_count=10,
+                                                            media_type=7 if self.__as_doc else None)(
                 "No files to upload. In case you have filled EXTENSION_FILTER, then check if all files have those extensions or not."
             )
             return
