@@ -6,5 +6,10 @@ services:
     command: bash start.sh
     restart: on-failure
     ports:
-      - "80:80"
-      - "8080:8080"
+      - "13:13"
+      - "9275:9275"
+
+networks:
+  default:
+    external: true
+    name: network11
